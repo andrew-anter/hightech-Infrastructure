@@ -3,6 +3,11 @@ variable "project_id" {
   description = "the id of the project"
 }
 
+variable "zone" {
+  type = string
+  description = "the zone of the cluster"
+}
+
 variable "region" {
   type = string
   description = "the region of the cluster"
@@ -21,6 +26,6 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 3
+  default     = 2
   description = "number of gke nodes"
 }
