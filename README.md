@@ -1,1 +1,1 @@
-# hightech-Infrastructure
+# Hightech web application infrastructure repository.
