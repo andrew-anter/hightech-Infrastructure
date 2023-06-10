@@ -3,11 +3,6 @@ output "region" {
   description = "GCloud Region"
 }
 
-output "project_name" {
-    value = var.project_name
-    description = "Name of the created project"
-}
-
 output "project_id" {
   value       = var.project_id
   description = "GCloud Project ID"
