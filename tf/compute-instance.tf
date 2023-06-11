@@ -11,12 +11,12 @@ resource "google_compute_address" "my_internal_ip_addr" {
 resource "google_compute_instance" "default" {
   project      = var.project_id
   zone         = var.zone
+  machine_type = var.machine_type
   name         = "jump-host"
-  machine_type = "e2-medium"
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = var.image
     }
   }
   network_interface {

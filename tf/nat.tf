@@ -1,12 +1,4 @@
-# create cloud router for nat gateway
-resource "google_compute_router" "router" {
-  project = var.project_id
-  network = google_compute_network.vpc.id
-  region  = var.region
-  name    = "nat-router"
-}
-
-## Create Nat Gateway with module
+## Create Nat Gateway 
 resource "google_compute_router_nat" "nat" {
   name                               = "my-router-nat"
   router                             = google_compute_router.router.name
