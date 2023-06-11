@@ -4,7 +4,7 @@ resource "google_compute_address" "my_internal_ip_addr" {
   region       = var.region
   subnetwork   = google_compute_subnetwork.subnet.id
   name         = "my-ip"
-  address      = "10.10.0.7"
+  address      = var.internal_ip
   description  = "An internal IP address for my jump host"
 }
 
