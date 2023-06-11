@@ -12,7 +12,14 @@ The required terraform files to create GKE cluster.
 
 ## Prequisites:
 1. Create a project for the website on GCP.
-2. Authenticate with [gcloud](https://cloud.google.com/sdk/gcloud/reference/auth).
+2. Authenticate with [gcloud auth](https://cloud.google.com/sdk/gcloud/reference/auth).
+    ```bash
+    gcloud auth login
+    ```
+3. Set current project to the project created
+    ```bash
+    gcloud config set project PROJECT_ID
+    ```
 3. Enable Compute Engine API: <br />
     ```bash
     gcloud services enable compute.googleapis.com
@@ -29,3 +36,10 @@ The required terraform files to create GKE cluster.
     ```bash
     terrraform apply
     ```
+
+## Connect the jump host to the cluster:
+1. Configure kubectl to use the cluster created.
+    ```bash
+    gcloud container clusters get-credentials hightech-website-gke --zone us-east1-b --project hightech-website
+    ```
+
