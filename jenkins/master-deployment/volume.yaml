@@ -26,10 +26,10 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: kubernetes.io/hostname
+        - key: env
           operator: In
           values:
-          - worker-node01
+          - hightech-website
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
