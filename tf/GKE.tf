@@ -22,8 +22,8 @@ resource "google_container_cluster" "primary" {
   }
   master_authorized_networks_config {
     cidr_blocks {
-      cidr_block   = "10.0.0.7/32"
-      display_name = "network1"
+      cidr_block   = "10.10.0.7/32"
+      display_name = "jumphost-network"
     }
   }
   
