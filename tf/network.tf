@@ -7,12 +7,10 @@ resource "google_compute_router" "router" {
 }
 
 ## Create Nat Gateway with module
-
-module "cloud-nat" {
-  source     = "terraform-google-modules/cloud-nat/google"
-  version    = "~> 1.2"
-  project_id = var.project_id
-  region     = var.region
-  router     = google_compute_router.router.name
-  name       = "nat-config"
+resource "google_compute_router_nat" "nat" {
+  name                               = "my-router-nat"
+  router                             = google_compute_router.router.name
+  region                             = var.region
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
