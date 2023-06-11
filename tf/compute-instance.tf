@@ -14,6 +14,8 @@ resource "google_compute_instance" "jumphost" {
   machine_type = var.machine_type
   name         = "jump-host"
 
+  allow_stopping_for_update = true
+
   metadata_startup_script = <<-EOT
     #!/bin/bash
     ## Add the gcloud CLI distribution URI as a package source && install google-cli
