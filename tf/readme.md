@@ -2,7 +2,7 @@
 The required terraform files to create GKE cluster.
 
 ## The components that will be created as follows:
-![Alt text](image.png)
+![Alt text](../hightech-website.jpg)
 1. A network named vpc.
 2. A Subnetwork named subnet.
 3. A private cluster named primary has private nodes and has no client access to the public endpoint.
