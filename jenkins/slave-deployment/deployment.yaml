@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-ubuntu-slave
+  namespace: devops-tools
+  labels:
+    app: jenkins-ubuntu-slave
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-ubuntu-slave
+  template:
+    metadata:
+      labels:
+        app: jenkins-ubuntu-slave
+    spec:
+      serviceAccountName: jenkins-admin
+      automountServiceAccountToken: true
+      securityContext:
+            fsGroup: 0 
+            runAsUser: 0
+      containers:
+      - name: jenkins-ubuntu-slave
+        image: mohamedsamirebrahim/enhanced-slave-image
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock
+        resources:
+            requests:
+              memory: "500Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+      volumes:
+      - name: docker-sock
+        hostPath:
+          path: /var/run/docker.sock
