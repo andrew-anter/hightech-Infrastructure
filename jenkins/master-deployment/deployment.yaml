@@ -16,20 +16,21 @@ spec:
       labels:
         app: jenkins-server
     spec:
-      nodeAffinity:
-        required:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: node
-              operator: In
-              values:
-              - master
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node
+                operator: In
+                values:
+                - master
       securityContext:
         fsGroup: 1000 
         runAsUser: 1000
       containers:
       - image: jenkins/jenkins:lts-jdk11
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: jenkins            
         ports:
         - containerPort: 8080
@@ -45,6 +46,7 @@ spec:
           periodSeconds: 10
           successThreshold: 2
           timeoutSeconds: 5
+        
         resources:
             requests:
               memory: "500Mi"
@@ -56,7 +58,8 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - name: data-disk
-          mountPath: /var/jenkins_home   
+          mountPath: /var/jenkins_home
+        
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
