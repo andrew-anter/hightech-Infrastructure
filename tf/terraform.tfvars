@@ -8,3 +8,7 @@ internal_ip  = "10.10.0.7"
 image        = "ubuntu-os-cloud/ubuntu-1804-lts"
 machine_type = "n1-standard-2"
 
+## GKE
+gke_node_pools = ["master", "slave"]
+gke_num_nodes = 1
+

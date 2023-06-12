@@ -54,3 +54,8 @@ variable "gke_num_nodes" {
   default     = 2
   description = "number of gke nodes"
 }
+
+variable "gke_node_pools"{
+  type = list(string)
+  description = "labels for the node pools to deffernetiate the nodes"
+}

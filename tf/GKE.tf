@@ -34,13 +34,11 @@ resource "google_container_cluster" "primary" {
 
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
-  name       = google_container_cluster.primary.name
+  name       = "nodepool-${var.gke_node_pools[count.index]}"
   location   = var.zone
   cluster    = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
-
-
-
+  count = 2
   node_config {
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",
@@ -51,7 +49,7 @@ resource "google_container_node_pool" "primary_nodes" {
     disk_size_gb = var.disk_size
 
     labels = {
-      env = var.project_id
+      node = var.gke_node_pools[count.index]
     }
     tags = ["gke-node", "${var.project_id}-gke"]
 
