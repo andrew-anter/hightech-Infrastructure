@@ -8,14 +8,6 @@ metadata:
 spec:
   replicas: 1
   revisionHistoryLimit: 10
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: node
-          operator: In
-          values:
-          - master
   selector:
     matchLabels:
       app: jenkins-server
@@ -33,12 +25,28 @@ spec:
                 operator: In
                 values:
                 - master
+      serviceAccountName: jenkins-admin
+      initContainers:
+      - name: install-docker
+        image: docker:stable
+        command: ["cp", "/usr/local/bin/docker", "/data/docker"]
+        volumeMounts:
+        - name: docker
+          mountPath: "/data"
+      - name: install-kubectl
+        image: eslamkarim/jenkins-ansible-kubectl
+        command: ["cp", "/usr/local/bin/kubectl", "/data/kubectl"]
+        volumeMounts:
+        - name: kubectl
+          mountPath: "/data"
       securityContext:
-        fsGroup: 1000 
+        fsGroup: 1000
         runAsUser: 1000
+        runAsGroup: 1000
+
       containers:
       - image: jenkins/jenkins:lts-jdk11
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: jenkins            
         ports:
         - containerPort: 8080
@@ -67,6 +75,14 @@ spec:
         volumeMounts:
         - name: data-disk
           mountPath: /var/jenkins_home
+        - mountPath: /var/run
+          name: docker-sock
+        - name: docker
+          subPath: "docker"
+          mountPath: "/usr/local/bin/docker"
+        - name: kubectl
+          subPath: "kubectl"
+          mountPath: "/usr/local/bin/kubectl"
         
       dnsPolicy: ClusterFirst
       restartPolicy: Always
@@ -76,3 +92,11 @@ spec:
       - name: data-disk
         persistentVolumeClaim:
           claimName: jenkins-pv-claim
+      - hostPath:
+          path: /var/run
+          type: ""
+        name: docker-sock
+      - name: docker
+        emptyDir: {}
+      - name: kubectl
+        emptyDir: {}
