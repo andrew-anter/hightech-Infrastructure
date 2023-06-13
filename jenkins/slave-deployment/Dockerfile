@@ -49,8 +49,8 @@ RUN apt-get install google-cloud-sdk-gke-gcloud-auth-plugin -y
 RUN apt-get install gettext-base -y 
 
 # Install Java
-RUN apt-get update && apt-get install -y openjdk-11-jdk && rm -rf /var/lib/apt/lists/*
 # same jdk of jenkins master
+RUN apt-get update && apt-get install -y openjdk-11-jdk && rm -rf /var/lib/apt/lists/*
     
 EXPOSE 22
 # tail -f the "f" stands for follow it monitors the file in real-time and chmod command to allow jenkins user to access docker socket
