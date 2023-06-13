@@ -42,6 +42,12 @@ RUN apt-get install apt-transport-https ca-certificates gnupg curl sudo -y \
  && apt-get update \
  && sudo apt-get install google-cloud-cli -y
 
+# install gke-gcloud-auth-plugin
+RUN apt-get install google-cloud-sdk-gke-gcloud-auth-plugin -y
+
+# install envsubst
+RUN apt-get install gettext-base -y 
+
 # Install Java
 RUN apt-get update && apt-get install -y openjdk-11-jdk && rm -rf /var/lib/apt/lists/*
 # same jdk of jenkins master
