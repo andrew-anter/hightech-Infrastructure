@@ -1,7 +1,7 @@
 # Creating GKE cluster using terraform 
 The required terraform files to create GKE cluster.
 
-## The components that will be created as follows:
+## The infrastructure that will be created as follows:
 ![Alt text](../hightech-website.jpg)
 1. A network named vpc.
 2. A Subnetwork named subnet.
