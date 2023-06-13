@@ -8,6 +8,14 @@ metadata:
 spec:
   replicas: 1
   revisionHistoryLimit: 10
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node
+          operator: In
+          values:
+          - master
   selector:
     matchLabels:
       app: jenkins-server
