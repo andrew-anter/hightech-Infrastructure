@@ -5,12 +5,6 @@ The infrastructure code that is used to deploy [hightech website](https://github
 ## The whole infrastructure is shown in the following diagram:
 
 ![The diagram for the infrastructure](./images/hightech-website.jpg)
-
-### Terraform configuration files lies in [tf](./tf/) directory and [readme file](./tf/readme.md) with the resources that will be created and prequisites. 
-
-### Jenkins deployment files which have 2 seperate deployments for [master agent](./jenkins/master-deployment/) and [slave agent](./jenkins/slave-deployment/) lies in [jenkins](./jenkins/) directory with the [readme file](./jenkins/readme.md) for the connection between the two agents.
-
-
 ## The infrastructure that will be created by as follows:
 1. A network named vpc.
 2. A Sub-network named subnet.
@@ -39,7 +33,8 @@ The infrastructure code that is used to deploy [hightech website](https://github
     </ul>
     <b>CI/CD pipeline:</b>
     <ul>
-        <li>The pipeline was created consisting of 2 stages: build and deploy
-        <li>Firstly, the build stage was 
+        <li>The pipeline had two phases: building and deploying. The build phase converted the application into a Docker image and uploaded it to Docker Hub. The deploy phase then used the image to deploy the application to the Kubernetes cluster that had already been created.
+        <li>During the building phase, an nginx:alpine image was used as a web server to host the static application files. Next, a Docker image was built with an nginx server and the application files at their default location in /usr/share/nginx/html. After that, the image was pushed to Docker Hub with the build number appended, so that every image from every build could be saved. Finally, the build number was exported to a local file so that the deployment always work with the last image number, even if the pipeline was changed to run the phase under a specific condition.
+        <li>During the deploying phase, the gcloud service account was authenticated to authorize the machine to use the GKE cluster. Next, kubectl was configured to work on the GKE cluster. Then, the application was deployed using a Kubernetes deployment file that included the latest image number from the build stage and a nodeport service. Finally, an ingress service was created and printed in the pipeline console output, which was essential for users to access the application.
     </ul>
 </ul>
