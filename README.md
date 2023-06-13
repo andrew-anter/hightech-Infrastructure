@@ -6,6 +6,6 @@ The infrastructure code that is used to deploy [hightech website](https://github
 
 ![The diagram for the infrastructure](./images/hightech-website.jpg)
 
-The terraform files located at ./tf/
+### Terraform configuration files lies in [tf](./tf/) directory and [readme file](./tf/readme.md) with the resources that will be created and prequisites. 
 
-The jenkins creation files located at ./jenkins/
+### Jenkins deployment files which have 2 seperate deployments for [master agent](./jenkins/master-deployment/) and [slave agent](./jenkins/slave-deployment/) lies in [jenkins](./jenkins/) directory with the [readme file](./jenkins/readme.md) for the connection between the two agents.
