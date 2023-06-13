@@ -47,5 +47,5 @@ RUN apt-get update && apt-get install -y openjdk-11-jdk && rm -rf /var/lib/apt/l
 # same jdk of jenkins master
     
 EXPOSE 22
-# tail -f the "f" stands for follow it monitors the file in real-time
+# tail -f the "f" stands for follow it monitors the file in real-time and chmod command to allow jenkins user to access docker socket
 ENTRYPOINT ["/bin/bash", "-c", "service ssh start && tail -f /dev/null && chmod 777 /var/run/docker.sock"]
