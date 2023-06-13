@@ -4,7 +4,7 @@ The infrastructure code that is used to deploy [hightech website](https://github
 
 ## The whole infrastructure is shown in the following diagram:
 
-![The diagram for the infrastructure](hightech-website.jpg)
+![The diagram for the infrastructure](./images/hightech-website.jpg)
 
 The terraform files located at ./tf/
 
